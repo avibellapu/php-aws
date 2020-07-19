@@ -1,0 +1,19 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/html
+    overwrite: true
+hooks:
+  ApplicationStop:
+    - location: sh_scripts/shutdown.sh
+      timeout: 30
+      runas: root  
+  BeforeInstall:
+    - location: sh_scripts/install_server.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: sh_scripts/startup.sh
+      timeout: 30
+      runas: root
